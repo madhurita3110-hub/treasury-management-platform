@@ -1,11 +1,22 @@
 import axios from "axios";
 
-export const askAI = async (question: string) => {
+const AI_API = "http://localhost:5000";
 
- const response = await axios.post(
-  "http://localhost:8000/ai/chat",
-  { question }
- );
+export const aiService = {
 
- return response.data.response;
+  analyzeTreasury: async () => {
+    const res = await axios.post(`${AI_API}/ai/analysis`);
+    return res.data;
+  },
+
+  detectAnomalies: async () => {
+    const res = await axios.get(`${AI_API}/ai/anomalies`);
+    return res.data;
+  },
+
+  chat: async (question: string) => {
+    const res = await axios.post(`${AI_API}/ai/chat`, { question });
+    return res.data;
+  }
+
 };

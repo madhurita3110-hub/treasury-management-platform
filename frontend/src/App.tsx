@@ -1,25 +1,32 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./components/Dashboard/Dashboard";
-import AIChat from "./components/AIChat/AIChat";
 
-function App(){
+import DashboardPage from "./pages/DashboardPage.tsx";
+import TransactionsPage from "./pages/TransactionsPage.tsx";
+import PaymentsPage from "./pages/PaymentsPage.tsx";
+import AIInsightsPage from "./pages/AIInsightsPage.tsx";
 
- return(
+function App() {
 
-  <BrowserRouter>
+  return (
 
-   <Routes>
+    <BrowserRouter>
 
-    <Route path="/" element={<Dashboard/>} />
+      <Routes>
 
-    <Route path="/ai" element={<AIChat/>} />
+        <Route path="/" element={<DashboardPage />} />
 
-   </Routes>
+        <Route path="/transactions" element={<TransactionsPage />} />
 
-  </BrowserRouter>
+        <Route path="/payments" element={<PaymentsPage />} />
 
- )
+        <Route path="/ai" element={<AIInsightsPage />} />
 
+      </Routes>
+
+    </BrowserRouter>
+
+  );
 }
 
 export default App;

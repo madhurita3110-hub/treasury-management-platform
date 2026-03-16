@@ -1,22 +1,16 @@
 from langgraph.graph import StateGraph
-from services.rag_service import ask_treasury_question
-
-class TreasuryState(dict):
-    question: str
-    answer: str
 
 
-def ai_node(state):
+def build_graph():
 
-    answer = ask_treasury_question(state["question"])
+    graph = StateGraph()
 
-    return {"answer": answer}
+    graph.add_node("retrieve_data")
 
+    graph.add_node("analyze_transactions")
 
-graph = StateGraph(TreasuryState)
+    graph.add_node("generate_answer")
 
-graph.add_node("ai_node", ai_node)
+    graph.set_entry_point("retrieve_data")
 
-graph.set_entry_point("ai_node")
-
-treasury_agent = graph.compile()
+    return graph.compile()

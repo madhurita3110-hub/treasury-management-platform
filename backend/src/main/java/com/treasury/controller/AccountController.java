@@ -24,6 +24,6 @@ public class AccountController {
 
     @PostMapping
     public Account create(@RequestBody Account account) {
-        return service.create(account);
+        return service.createAccount(account);
     }
 }

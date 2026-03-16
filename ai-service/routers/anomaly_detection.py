@@ -1,21 +1,16 @@
 from fastapi import APIRouter
-import numpy as np
+from services.anomaly_service import detect_anomalies
 
-router = APIRouter(prefix="/ai")
+router = APIRouter()
 
-@router.post("/detect-anomaly")
+@router.get("/ai/anomalies")
 
-def detect_anomaly(transactions:list):
+def anomalies():
 
-    mean = np.mean(transactions)
-
-    anomalies = []
-
-    for t in transactions:
-
-        if t > mean * 2:
-            anomalies.append(t)
+    result = detect_anomalies()
 
     return {
-        "anomalies": anomalies
+
+        "anomalies": result
+
     }

@@ -19,7 +19,7 @@ public class AccountService {
         return repo.findAll();
     }
 
-    public Account create(Account account) {
+    public Account createAccount(Account account) {
         return repo.save(account);
     }
 }

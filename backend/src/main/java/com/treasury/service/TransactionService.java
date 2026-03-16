@@ -9,13 +9,17 @@ import java.util.List;
 @Service
 public class TransactionService {
 
-    private final TransactionRepository transactionRepository;
+    private final TransactionRepository repo;
 
-    public TransactionService(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
+    public TransactionService(TransactionRepository repo) {
+        this.repo = repo;
     }
 
-    public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll();
+    public List<Transaction> getTransactions() {
+        return repo.findAll();
+    }
+
+    public Transaction createTransaction(Transaction tx) {
+        return repo.save(tx);
     }
 }

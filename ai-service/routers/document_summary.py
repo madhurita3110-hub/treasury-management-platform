@@ -1,18 +1,14 @@
 from fastapi import APIRouter
-from langchain_openai import ChatOpenAI
+from services.document_summary import summarize_document
 
-router = APIRouter(prefix="/ai")
+router = APIRouter()
 
-llm = ChatOpenAI(model="gpt-4o-mini")
+@router.post("/ai/summarize")
 
-@router.post("/summarize")
-
-def summarize(text:str):
-
-    prompt = f"Summarize this treasury document:\n{text}"
-
-    result = llm.invoke(prompt)
+def summarize(text: str):
 
     return {
-        "summary": result.content
+
+        "summary": summarize_document(text)
+
     }

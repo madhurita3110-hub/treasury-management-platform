@@ -1,7 +1,7 @@
 package com.treasury.controller;
 
 import com.treasury.model.Transaction;
-import com.treasury.repository.TransactionRepository;
+import com.treasury.service.TransactionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,19 +11,19 @@ import java.util.List;
 @CrossOrigin
 public class TransactionController {
 
-    private final TransactionRepository repo;
+    private final TransactionService service;
 
-    public TransactionController(TransactionRepository repo) {
-        this.repo = repo;
+    public TransactionController(TransactionService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public List<Transaction> getAll() {
-        return repo.findAll();
+    public List<Transaction> getTransactions() {
+        return service.getTransactions();
     }
 
     @PostMapping
     public Transaction create(@RequestBody Transaction tx) {
-        return repo.save(tx);
+        return service.createTransaction(tx);
     }
 }

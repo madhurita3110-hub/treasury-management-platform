@@ -1,16 +1,14 @@
 from fastapi import APIRouter
-from langgraph.treasury_graph import treasury_agent
+from services.chat_service import treasury_chat
 
-router = APIRouter(prefix="/ai")
+router = APIRouter()
 
-@router.post("/chat")
+@router.post("/ai/chat")
 
-def chat(question:str):
-
-    result = treasury_agent.invoke(
-        {"question":question}
-    )
+def chat(question: str):
 
     return {
-        "response": result["answer"]
+
+        "response": treasury_chat(question)
+
     }

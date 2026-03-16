@@ -1,24 +1,16 @@
-from langchain_community.document_loaders import TextLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
+from services.rag_service import add_documents
 
-def ingest_documents():
+def load_documents():
 
-    loader = TextLoader("documents/treasury_policy.txt")
+    docs = [
 
-    docs = loader.load()
+        "Treasury liquidity management policies",
 
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=50
-    )
+        "Foreign exchange risk mitigation strategies",
 
-    chunks = splitter.split_documents(docs)
+        "Cash pooling best practices",
 
-    db = FAISS.from_documents(
-        chunks,
-        OpenAIEmbeddings()
-    )
+        "Treasury payment risk management"
+    ]
 
-    db.save_local("vector_store/faiss_index")
+    add_documents(docs)

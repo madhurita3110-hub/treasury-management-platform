@@ -1,28 +1,31 @@
-from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
-from langchain_openai import ChatOpenAI
+import faiss
+from services.embedding_service import create_embeddings
 
-embedding = OpenAIEmbeddings()
-llm = ChatOpenAI(model="gpt-4o-mini")
+documents = []
 
-def ask_treasury_question(question):
+index = None
 
-    db = FAISS.load_local("vector_store/faiss_index", embedding)
 
-    docs = db.similarity_search(question, k=3)
+def add_documents(docs):
 
-    context = "\n".join([doc.page_content for doc in docs])
+    global documents
+    global index
 
-    prompt = f"""
-    You are a treasury financial assistant.
+    documents = docs
 
-    Context:
-    {context}
+    vectors = create_embeddings(docs)
 
-    Question:
-    {question}
-    """
+    dimension = len(vectors[0])
 
-    response = llm.invoke(prompt)
+    index = faiss.IndexFlatL2(dimension)
 
-    return response.content
+    index.add(vectors)
+
+
+def search_docs(query):
+
+    query_vec = create_embeddings([query])
+
+    D, I = index.search(query_vec, 3)
+
+    return [documents[i] for i in I[0]]

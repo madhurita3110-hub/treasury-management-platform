@@ -8,17 +8,26 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "transactions")
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accountNumber;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     private Double amount;
 
     private String type;
 
-    private LocalDateTime timestamp;
+    @Column(name = "transaction_date")
+    private LocalDateTime transactionDate = LocalDateTime.now();
+
+    private String description;
+
+    @Column(unique = true)
+    private String referenceNumber;
 }
