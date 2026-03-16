@@ -1,70 +1,504 @@
-# Getting Started with Create React App
+# AI Treasury Management Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An end-to-end **enterprise-style treasury analytics platform** built with **React, Spring Boot, PostgreSQL, and AI microservices**.
 
-## Available Scripts
+The system simulates a **modern fintech treasury platform** capable of managing bank accounts, tracking transactions, detecting anomalies, and generating AI-driven financial insights using LLMs.
 
-In the project directory, you can run:
+This project demonstrates **real-world full-stack architecture patterns** including microservices, layered backend design, AI pipelines, and scalable frontend state management.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# System Architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+                +---------------------+
+                |     React UI        |
+                |  (Redux + TS)     n |
+                +----------+----------+
+                           |
+                           |
+                           v
+                +---------------------+
+                |   Spring Boot API   |
+                |  (Business Layer)   |
+                +----------+----------+
+                           |
+                +----------+----------+
+                |                     |
+                v                     v
+       +----------------+    +------------------+
+       |  PostgreSQL DB |    |   AI Microservice |
+       |  (Treasury Data)|   | FastAPI + LLMs    |
+       +----------------+    +------------------+
+                                      |
+                                      v
+                              +---------------+
+                              | Vector DB     |
+                              | (FAISS)       |
+                              +---------------+
+```
 
-### `npm test`
+The platform separates responsibilities into **three independent services**:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Layer      | Technology          | Responsibility             |
+| ---------- | ------------------- | -------------------------- |
+| Frontend   | React + TypeScript  | Treasury dashboards and UI |
+| Backend    | Spring Boot         | APIs, business logic       |
+| AI Service | FastAPI + LangChain | AI insights and analytics  |
+| Database   | PostgreSQL          | Persistent financial data  |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Frontend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* React
+* TypeScript
+* Redux Toolkit
+* Axios
+* Material UI
+* Chart.js
 
-### `npm run eject`
+## Backend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* Java 17
+* Spring Boot
+* Spring Data JPA
+* Maven
+* PostgreSQL JDBC
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## AI Service
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Python
+* FastAPI
+* LangChain
+* LangGraph
+* FAISS Vector Database
+* OpenAI / Llama Models
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Database
 
-## Learn More
+* PostgreSQL
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Dev Tools
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* VSCode
+* Maven
+* Node.js
+* Git
+* Docker (optional)
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Project Structure
 
-### Analyzing the Bundle Size
+```
+treasury-management-platform
+│
+├── frontend
+│   ├── src
+│   │   ├── app
+│   │   │   └── store.ts
+│   │   │
+│   │   ├── components
+│   │   │   ├── Dashboard
+│   │   │   ├── Navbar
+│   │   │   └── Charts
+│   │   │
+│   │   ├── features
+│   │   │   ├── accounts
+│   │   │   ├── transactions
+│   │   │   ├── payments
+│   │   │   └── ai
+│   │   │
+│   │   ├── pages
+│   │   │   ├── DashboardPage
+│   │   │   ├── TransactionsPage
+│   │   │   └── AccountsPage
+│   │   │
+│   │   ├── services
+│   │   │   └── api.ts
+│   │   │
+│   │   ├── App.tsx
+│   │   └── index.tsx
+│
+├── backend
+│   └── src/main/java/com/treasury
+│       ├── controller
+│       ├── service
+│       ├── repository
+│       ├── model
+│       ├── config
+│       └── TreasuryBackendApplication.java
+│
+├── ai-service
+│   ├── agents
+│   ├── services
+│   ├── embeddings
+│   ├── models
+│   └── main.py
+│
+└── database
+    └── schema.sql
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+# Core Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Treasury Management
 
-### Advanced Configuration
+* Bank account management
+* Cash balance tracking
+* Transaction recording
+* Payment processing
+* Cash position visibility
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Analytics Dashboard
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+* Treasury dashboard
+* Account balance overview
+* Transaction charts
+* Cashflow analytics
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## AI Capabilities
+
+The AI microservice provides multiple intelligent financial analysis features.
+
+### Treasury AI Chat
+
+Users can ask questions like:
+
+```
+What is the current cash position?
+```
+
+or
+
+```
+Summarize recent transactions
+```
+
+---
+
+### Transaction Anomaly Detection
+
+AI analyzes transaction patterns and flags suspicious activity.
+
+Example:
+
+```
+Transaction amount significantly higher than historical average
+```
+
+---
+
+### Financial Document Summarization
+
+AI can summarize financial documents such as:
+
+* bank statements
+* treasury reports
+* transaction logs
+
+---
+
+# AI Pipeline
+
+```
+Financial Data
+      |
+      v
+Transaction History
+      |
+      v
+Embedding Generation
+      |
+      v
+Vector Database (FAISS)
+      |
+      v
+LangGraph AI Agents
+      |
+      v
+Treasury Insights
+```
+
+AI agents perform:
+
+| Agent         | Function               |
+| ------------- | ---------------------- |
+| Chat Agent    | Financial Q&A          |
+| Anomaly Agent | Fraud detection        |
+| Summary Agent | Document summarization |
+
+---
+
+# Backend APIs
+
+## Accounts
+
+```
+GET /api/accounts
+POST /api/accounts
+```
+
+Example response
+
+```
+[
+ {
+   "id":1,
+   "accountNumber":"TREASURY-001",
+   "bankName":"JP Morgan",
+   "balance":2500000,
+   "currency":"USD"
+ }
+]
+```
+
+---
+
+## Transactions
+
+```
+GET /api/transactions
+POST /api/transactions
+```
+
+---
+
+## AI APIs
+
+```
+POST /api/ai/chat
+POST /api/ai/anomaly
+POST /api/ai/summarize
+```
+
+---
+
+# Database Schema
+
+Main tables
+
+```
+accounts
+transactions
+payments
+cash_positions
+```
+
+Example table
+
+```
+accounts
+--------
+id
+account_number
+bank_name
+balance
+currency
+```
+
+---
+
+# Setup Instructions
+
+## Clone Repository
+
+```
+git clone https://github.com/your-username/treasury-management-platform.git
+cd treasury-management-platform
+```
+
+---
+
+# Database Setup
+
+Install PostgreSQL.
+
+Login to PostgreSQL
+
+```
+psql -U postgres
+```
+
+Create database
+
+```
+CREATE DATABASE treasury;
+```
+
+Run schema
+
+```
+psql -U postgres -d treasury -f database/schema.sql
+```
+
+---
+
+# Run Backend
+
+Navigate to backend
+
+```
+cd backend
+```
+
+Run Spring Boot
+
+```
+mvn spring-boot:run
+```
+
+Backend runs at
+
+```
+http://localhost:8080
+```
+
+---
+
+# Run AI Service
+
+Navigate to AI service
+
+```
+cd ai-service
+```
+
+Install dependencies
+
+```
+pip install -r requirements.txt
+```
+
+Run FastAPI server
+
+```
+uvicorn main:app --reload --port 5000
+```
+
+AI service runs at
+
+```
+http://localhost:5000
+```
+
+---
+
+# Run Frontend
+
+Navigate to frontend
+
+```
+cd frontend
+```
+
+Install dependencies
+
+```
+npm install
+```
+
+Start React server
+
+```
+npm start
+```
+
+Frontend runs at
+
+```
+http://localhost:3000
+```
+
+---
+
+# Example Workflow
+
+1. Create treasury account
+2. Add transactions
+3. View dashboard analytics
+4. Ask AI questions
+5. Detect anomalous transactions
+
+---
+
+# System Design Highlights
+
+This project demonstrates key **enterprise architecture patterns**:
+
+### Layered Backend Architecture
+
+```
+Controller
+Service
+Repository
+Database
+```
+
+### Microservice Integration
+
+```
+React
+   ↓
+Spring Boot API
+   ↓
+AI Microservice
+   ↓
+Vector Database
+```
+
+### State Management
+
+Redux Toolkit is used to manage:
+
+* accounts
+* transactions
+* payments
+* AI responses
+
+---
+
+# Future Enhancements
+
+* Kafka streaming pipeline
+* Real-time treasury monitoring
+* ML fraud detection model
+* Forecasting cashflow
+* Docker deployment
+* Kubernetes microservices
+
+---
+
+Dashboard
+
+```
+Accounts overview
+Transaction analytics
+AI insights panel
+```
+
+---
+
+# Author
+
+**Madhurita Munipelli**
+
+Senior Full Stack Engineer
+
+Experience
+
+* React
+* Java / Spring Boot
+* Python AI
+* Microservices
+* Cloud architectures
+
